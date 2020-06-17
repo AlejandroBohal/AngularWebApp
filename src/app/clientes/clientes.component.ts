@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
-import swal from 'sweetalert2';
+import { CLIENTESOBSERVABLE } from './clientes.json';
 import Swal from 'sweetalert2';
+import { first } from 'rxjs/operators';
+import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-clientes',
@@ -17,6 +20,12 @@ export class ClientesComponent implements OnInit {
     this.clienteService.getClientes().subscribe(
       clientes => this.clientes = clientes
     );
+    CLIENTESOBSERVABLE.subscribe(
+      value => console.log(value)
+    )
+    // let cliente$ = this.clienteService.getClientes();
+    // let firstCliente$ = cliente$.pipe(first(cliente => cliente.id%2 === 0))
+
   }
   delete(cliente: Cliente): void{
     const swalWithBootstrapButtons = Swal.mixin({
@@ -26,6 +35,7 @@ export class ClientesComponent implements OnInit {
   },
   buttonsStyling: false
 })
+
 
 swalWithBootstrapButtons.fire({
   title: '¿Está seguro?',
