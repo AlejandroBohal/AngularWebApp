@@ -44,7 +44,7 @@ export class ClienteService {
   }
   update(cliente: Cliente): Observable<Cliente>{
     return this.http.put(`${this.urlEndPoint}/${cliente.id}`,cliente, {headers: this.httpHeaders}).pipe(
-      map ((response:any) => response as Cliente),
+      map ((response:any) => response.cliente as Cliente),
       catchError(e => {
         this.router.navigate(['/clientes'])
         console.error(e.error.mensaje);
