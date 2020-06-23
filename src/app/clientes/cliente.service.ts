@@ -11,7 +11,7 @@ import { URL_BACKEND } from '../config';
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndPoint:string = URL_BACKEND + '/api/clientes';
+  private urlEndPoint:string = URL_BACKEND + 'api/clientes';
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
