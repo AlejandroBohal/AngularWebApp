@@ -1,10 +1,18 @@
+
 # ClientesApp
+
+![Build_and_Deploy](https://github.com/AlejandroBohal/AngularWebApp/workflows/Build_and_Deploy/badge.svg)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Production server
+
+This project is running on firebase hosting using github action for CI/CD Build_and_Deploy, url:
+https://clientes-appng.web.app/
 
 ## Code scaffolding
 
