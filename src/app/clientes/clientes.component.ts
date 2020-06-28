@@ -66,7 +66,7 @@ swalWithBootstrapButtons.fire({
 }).then((result) => {
   if (result.value) {
       this.clienteService.delete(cliente.id).subscribe(
-        response =>{
+        _response =>{
           this.clientes = this.clientes.filter( cli => cli!== cliente)
           swalWithBootstrapButtons.fire(
           'Eliminado!',
