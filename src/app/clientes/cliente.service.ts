@@ -13,23 +13,25 @@ import { URL_BACKEND } from '../config';
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndPoint:string = /*"http://localhost:8080/api/clientes";*/ URL_BACKEND + 'api/clientes';
+  private urlEndPoint:string = "http://localhost:8080/api/clientes";// URL_BACKEND + 'api/clientes';
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
   constructor(private http: HttpClient,private router:Router) { }
   //return this.http.get<Cliente[]>(this.urlEndPoint);
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get(this.urlEndPoint).pipe(
+  getClientes(page: Number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
 
-      map ( (response) => {
-        let clientes = response as Cliente[];
-        return clientes.map(cliente =>{
-          cliente.nombre = cliente.nombre.toUpperCase();
+      map ( (response : any) => {
+          (response.content as Cliente[]).map(cliente =>{
+          let nombre = cliente.nombre;
+          cliente.nombre = nombre[0].toUpperCase() + nombre.substr(1).toLowerCase();
           let datePipe = new DatePipe('es-CO');
           cliente.createAt = datePipe.transform(cliente.createAt,'fullDate') //formatDate(cliente.createAt,'dd-MM-yyyy','en-US');
           return cliente;
-        });} ),
+        });
+        return  response;
+      } )
 
     );
   }
