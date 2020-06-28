@@ -1,3 +1,8 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let e of errores">
+    {{e}}
+  </li>
+</ul>
 <div class="card bg-dark text-white my-3">
   <div class="card-header">{{ titulo }}</div>
   <div class="card-body">
@@ -46,9 +51,9 @@
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid" >Crear</button>
+          <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!cliente.id else elseBlock">Crear</button><!-- [disabled]="!clienteForm.form.valid"-->
           <ng-template #elseBlock>
-            <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!clienteForm.form.valid">Editar</button>
+            <button class="btn btn-primary" role="button" (click)="update()">Editar</button>
           </ng-template>
 
         </div>
