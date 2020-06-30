@@ -14,6 +14,10 @@ import { FormsModule } from '@angular/forms'
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es-CO';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatMomentDateModule } from '@angular/material-moment-adapter'
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 registerLocaleData(localeES,'es-CO');
 const routes: Routes = [
@@ -37,7 +41,10 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    MatMomentDateModule,
     FormsModule,
+    MatDatepickerModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes)
 
   ],
