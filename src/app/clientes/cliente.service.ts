@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
 import swal from 'sweetalert2'
 import {DatePipe} from '@angular/common';
@@ -13,7 +13,7 @@ import { URL_BACKEND } from '../config';
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndPoint:string = /*http://localhost:8080/api/clientes";*/ URL_BACKEND + 'api/clientes';
+  private urlEndPoint:string = /*http://localhost:8080/api/clientes;*/ URL_BACKEND + 'api/clientes';
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
@@ -74,7 +74,7 @@ export class ClienteService {
       })
     );
   }
-  delete(id:Number): Observable<Cliente>{
+  delete(id:number): Observable<Cliente>{
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`,{headers:this.httpHeaders}).pipe(
       catchError(e => {
         this.router.navigate(['/clientes'])
@@ -84,4 +84,15 @@ export class ClienteService {
       })
     );
   }
+  subirFoto(file: File,id): Observable<HttpEvent<{}>>{
+    let formData = new FormData();
+    formData.append("file",file);
+    formData.append("id",id);
+    const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
+      reportProgress: true
+    });
+    return this.http.request(req);
+
+  }
+
 }
