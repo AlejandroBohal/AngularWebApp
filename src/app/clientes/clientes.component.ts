@@ -3,18 +3,24 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
-
+import {ModalService} from'./detalle/modal.service';
+import { URL_BACKEND } from '../config';
 
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
+  styleUrls: ['./clientes.component.css']
 
 })
 export class ClientesComponent implements OnInit {
   clientes: Cliente[];
   paginador: any;
-  constructor(private clienteService: ClienteService, private activatedRoute:ActivatedRoute) { }
+  clienteSeleccionado:Cliente;
+  url: string = URL_BACKEND;
+  constructor(private clienteService: ClienteService,
+    private modalService:ModalService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe( params => {
@@ -28,6 +34,14 @@ export class ClientesComponent implements OnInit {
           this.paginador = response;
         }
       );
+      this.modalService.notify.subscribe(cliente =>{
+        this.clientes = this.clientes.map(clienteOriginal=>{
+          if(cliente.id == clienteOriginal.id){
+            clienteOriginal.foto = cliente.foto;
+          }
+          return clienteOriginal;
+        })
+      })
     }
 
     )
@@ -87,5 +101,10 @@ swalWithBootstrapButtons.fire({
   }
 })
   }
+
+abrirModal(cliente:Cliente){
+  this.modalService.abrirModal();
+  this.clienteSeleccionado = cliente;
+}
 
 }
