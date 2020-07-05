@@ -23,14 +23,14 @@ export class PaginatorComponent implements OnInit,OnChanges {
     }
   }
 
-  private initPaginator() : void{
-    this.from = Math.min (Math.max(1,this.paginador.number-4), this.paginador.totalPages-5);
-    this.to = Math.max (Math.min(this.paginador.totalPages,this.paginador.number+4),6);
+  initPaginator() : void{
+    this.from = this.paginador.number-2<=0?1:this.paginador.number-2;
+    this.to = this.paginador.number-2<=0?5:this.paginador.number+2;
 
-    if (this.paginador.totalPages > 5){
-      this.paginas = new Array(this.from - this.to + 1).fill(0).map((_valor,indice) => indice + this.from);
+    if (this.to > this.paginador.totalPages){
+      this.paginas = new Array(this.to - this.from+1).fill(0).map((_valor,indice) => indice + this.from-1);
     }else{
-      this.paginas = new Array(this.paginador.totalPages).fill(0).map((_valor,indice) => indice +1);
-      }
+      this.paginas = new Array(this.to - this.from+1).fill(0).map((_valor,indice) => indice + this.from);
     }
   }
+}

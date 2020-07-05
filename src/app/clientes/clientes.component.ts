@@ -34,6 +34,7 @@ export class ClientesComponent implements OnInit {
           this.paginador = response;
         }
       );
+      
       this.modalService.notify.subscribe(cliente =>{
         this.clientes = this.clientes.map(clienteOriginal=>{
           if(cliente.id == clienteOriginal.id){
