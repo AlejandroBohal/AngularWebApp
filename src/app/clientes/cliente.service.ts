@@ -7,13 +7,14 @@ import swal from 'sweetalert2'
 import {DatePipe} from '@angular/common';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config';
+import { Region } from './region';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndPoint:string = /*http://localhost:8080/api/clientes;*/ URL_BACKEND + 'api/clientes';
+  private urlEndPoint:string =  URL_BACKEND + 'api/clientes';
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
@@ -34,6 +35,9 @@ export class ClienteService {
       } )
 
     );
+  }
+  getRegiones(): Observable<Region[]>{
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   }
 
   create(cliente: Cliente) : Observable<Cliente>{
